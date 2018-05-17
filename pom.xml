@@ -39,6 +39,14 @@
 
     <dependencies>
     
+    <!--  PEM Keystores -->
+
+        <dependency>
+            <groupId>de.dentrassi.crypto</groupId>
+            <artifactId>pem-keystore</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    
         <!-- spring boot -->
 
         <dependency>
