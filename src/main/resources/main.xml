@@ -12,7 +12,7 @@
             <from uri="amqp:telemetry/DEFAULT_TENANT"/>
             <to uri="stream:out" />
             <to uri="bean:metricsProcessor"/>
-            <to uri="influxdb:influxDbConnectionBean?database=payload"/>
+            <to uri="influxdb:influxDbConnectionBean?databaseName=payload"/>
         </route>
 
     </camelContext>
