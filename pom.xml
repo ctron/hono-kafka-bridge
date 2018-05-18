@@ -91,6 +91,11 @@
             <artifactId>camel-influxdb-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

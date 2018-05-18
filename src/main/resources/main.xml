@@ -8,11 +8,17 @@
     <camelContext id="HonoExampleBridge"
         xmlns="http://camel.apache.org/schema/spring">
 
+        <dataFormats>
+            <json id="map" library="Jackson" unmarshalTypeName="java.util.Map" />
+        </dataFormats>
+
         <route id="dump">
             <from uri="amqp:telemetry/DEFAULT_TENANT"/>
-            <to uri="stream:out" />
+
+            <unmarshal ref="map"/>
+
             <to uri="bean:metricsProcessor"/>
-            <to uri="influxdb:influxDbConnectionBean?databaseName=payload"/>
+            <to uri="influxdb:influxDbConnectionBean?databaseName=payload&amp;retentionPolicy=autogen"/>
         </route>
 
     </camelContext>
