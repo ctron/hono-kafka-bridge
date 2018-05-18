@@ -11,6 +11,7 @@
         <route id="dump">
             <from uri="amqp:telemetry/DEFAULT_TENANT"/>
             <to uri="stream:out" />
+            <to uri="influxdb:influxDbConnectionBean?database=payload"/>
         </route>
 
     </camelContext>
