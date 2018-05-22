@@ -12,7 +12,7 @@
             <json id="map" library="Jackson" unmarshalTypeName="java.util.Map" />
         </dataFormats>
 
-        <route id="dump">
+        <route id="store">
             <from uri="amqp:telemetry/DEFAULT_TENANT"/>
 
             <unmarshal ref="map"/>
