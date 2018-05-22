@@ -1,0 +1,93 @@
+{
+  "v": "4.0",
+  "name": "hono-example-bridge",
+  "workspace": {
+    "environments": {
+      "default": {
+        "machines": {
+          "dev-machine": {
+            "attributes": {
+              "memoryLimitBytes": "2147483648"
+            },
+            "servers": {
+              "tomcat8-debug": {
+                "attributes": {},
+                "port": "8000",
+                "protocol": "http"
+              },
+              "codeserver": {
+                "attributes": {},
+                "port": "9876",
+                "protocol": "http"
+              },
+              "tomcat8": {
+                "attributes": {},
+                "port": "8080",
+                "protocol": "http"
+              }
+            },
+            "volumes": {},
+            "installers": [
+              "org.eclipse.che.exec",
+              "org.eclipse.che.terminal",
+              "org.eclipse.che.ws-agent",
+              "org.eclipse.che.ls.camel"
+            ],
+            "env": {}
+          }
+        },
+        "recipe": {
+          "type": "dockerimage",
+          "content": "eclipse/ubuntu_jdk8"
+        }
+      }
+    },
+    "defaultEnv": "default",
+    "projects": [
+      {
+        "links": [],
+        "name": "hono-example-bridge",
+        "attributes": {
+          "contribute_to_branch": [
+            "master"
+          ],
+          "commands": [
+            "{\"commandLine\":\"mvn clean package spring-boot:run -B -f ${current.project.path}\", \"name\":\"run\", \"attributes\":{\"goal\":\"Run\", \"previewUrl\":\"\"}, \"type\":\"custom\"}"
+          ]
+        },
+        "type": "maven",
+        "source": {
+          "location": "https://github.com/ctron/hono-example-bridge",
+          "type": "git",
+          "parameters": {}
+        },
+        "path": "/hono-example-bridge",
+        "description": "",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      }
+    ],
+    "name": "hono-example-bridge",
+    "commands": [
+      {
+        "commandLine": "mvn clean install -B -f ${current.project.path}",
+        "name": "build",
+        "attributes": {
+          "goal": "Build",
+          "previewUrl": ""
+        },
+        "type": "mvn"
+      }
+    ],
+    "links": []
+  },
+  "id": "factoryhzli1famqtydpfmx",
+  "creator": {
+    "name": "che",
+    "email": "che@eclipse.org",
+    "created": 1526980296641,
+    "userId": "che"
+  }
+}
