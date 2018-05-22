@@ -31,7 +31,15 @@ public class ProcessMetrics {
 
         for (final Map.Entry<String, ?> entry : msg.getHeaders().entrySet()) {
             if (!entry.getKey().startsWith("JMS") && entry.getValue() instanceof String) {
-                p.tag(entry.getKey(), (String) entry.getValue());
+
+                switch (entry.getKey()) {
+                case "breadcrumbId":
+                    break;
+                default:
+                    p.tag(entry.getKey(), (String) entry.getValue());
+                    break;
+                }
+
             }
         }
 
