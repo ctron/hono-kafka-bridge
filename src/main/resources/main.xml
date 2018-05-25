@@ -13,14 +13,18 @@
         </dataFormats>
 
         <route id="store">
-            <from uri="amqp:telemetry/DEFAULT_TENANT"/>
+            <from uri="amqp:telemetry/DEFAULT_TENANT" />
 
-            <to uri="kafka:telemetry?brokers=hono-kafka-cluster-kafka.strimzi.svc:9092"/>
+            <setHeader id="setKafkaKey" headerName="kafka.KEY">
+                <simple>${header[device_id]}</simple>
+            </setHeader>
 
-            <unmarshal ref="map"/>
+            <to uri="kafka:telemetry?brokers=hono-kafka-cluster-kafka.strimzi.svc:9092" />
 
-            <to uri="bean:metricsProcessor"/>
-            <to uri="influxdb:influxDbConnectionBean?databaseName=payload&amp;retentionPolicy=autogen"/>
+            <unmarshal ref="map" />
+
+            <to uri="bean:metricsProcessor" />
+            <to uri="influxdb:influxDbConnectionBean?databaseName=payload&amp;retentionPolicy=autogen" />
         </route>
 
     </camelContext>
