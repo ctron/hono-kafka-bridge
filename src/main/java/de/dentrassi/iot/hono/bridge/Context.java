@@ -12,8 +12,6 @@
 package de.dentrassi.iot.hono.bridge;
 
 import org.apache.camel.component.amqp.AMQPConnectionDetails;
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,17 +23,8 @@ public class Context {
     private @Value("${amqp.username}") String amqpUsername;
     private @Value("${amqp.password}") String amqpPassword;
 
-    private @Value("${influx.uri}") String influxUrl;
-    private @Value("${influx.username}") String influxUsername;
-    private @Value("${influx.password}") String influxPassword;
-
     @Bean
     public AMQPConnectionDetails amqpConnection() {
         return new AMQPConnectionDetails(this.amqpUri, this.amqpUsername, this.amqpPassword);
-    }
-
-    @Bean(name = "influxDbConnectionBean")
-    public InfluxDB influxDbConnection() {
-        return InfluxDBFactory.connect(this.influxUrl, this.influxUsername, this.influxPassword);
     }
 }
