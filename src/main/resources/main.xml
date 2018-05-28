@@ -20,11 +20,6 @@
             </setHeader>
 
             <to uri="kafka:telemetry?brokers=hono-kafka-cluster-kafka.strimzi.svc:9092" />
-
-            <unmarshal ref="map" />
-
-            <to uri="bean:metricsProcessor" />
-            <to uri="influxdb:influxDbConnectionBean?databaseName=payload&amp;retentionPolicy=autogen" />
         </route>
 
     </camelContext>
