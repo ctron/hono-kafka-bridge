@@ -19,7 +19,7 @@
                 <simple>${header[device_id]}</simple>
             </setHeader>
 
-            <to uri="kafka:telemetry?brokers=hono-kafka-cluster-kafka.strimzi.svc:9092" />
+            <to uri="kafka:telemetry?brokers={{kafka.brokers}}" />
         </route>
 
     </camelContext>
