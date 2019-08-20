@@ -13,7 +13,7 @@
         </dataFormats>
 
         <route id="store">
-            <from uri="amqp:telemetry/DEFAULT_TENANT" />
+            <from uri="amqp:telemetry/{{iot.tenant}}" />
 
             <setHeader id="setKafkaKey" headerName="kafka.KEY">
                 <simple>${header[device_id]}</simple>
