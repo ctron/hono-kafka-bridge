@@ -19,7 +19,7 @@
                 <simple>${header[device_id]}</simple>
             </setHeader>
 
-            <to uri="kafka:telemetry?brokers={{kafka.brokers}}" />
+            <to uri="kafka:{{kafka.topic}}?brokers={{kafka.brokers}}" />
         </route>
 
     </camelContext>
