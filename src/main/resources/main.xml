@@ -5,7 +5,7 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <camelContext id="HonoExampleBridge"
+    <camelContext id="HonoKafkaBridge"
         xmlns="http://camel.apache.org/schema/spring">
 
         <dataFormats>
