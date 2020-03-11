@@ -18,6 +18,9 @@
             <setHeader id="setKafkaKey" headerName="kafka.KEY">
                 <simple>${header[device_id]}</simple>
             </setHeader>
+            <setHeader id="setDeviceAlias" headerName="deviceAlias">
+                <simple>${header[deviceAlias]}</simple>
+            </setHeader>
 
             <to uri="kafka:{{kafka.topic}}?brokers={{kafka.brokers}}" />
         </route>
