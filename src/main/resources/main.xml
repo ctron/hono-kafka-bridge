@@ -15,6 +15,8 @@
         <route id="store">
             <from uri="amqp:telemetry/{{iot.tenant}}" />
 
+            <log message="${headers}\n${body}"/>
+
             <setHeader id="setKafkaKey" headerName="kafka.KEY">
                 <simple>${header[device_id]}</simple>
             </setHeader>
