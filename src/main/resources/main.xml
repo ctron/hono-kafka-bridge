@@ -12,10 +12,30 @@
             <json id="map" library="Jackson" unmarshalTypeName="java.util.Map" />
         </dataFormats>
 
-        <route id="store">
+        <route id="switch">
             <from uri="amqp:telemetry/{{iot.tenant}}" />
 
-            <log message="${headers}\n${body}"/>
+            <log message="FP: ${headers[function_port]}"/>
+
+            <choice>
+                <when>
+                    <simple>${header[function_port]} == 1</simple>
+                    <to uri="direct:store"/>
+                </when>
+                <when>
+                    <simple>${header[function_port]} == 9</simple>
+                    <log message="Time request: ${headers}\n${body}"/>
+                </when>
+                <otherwise>
+                    <log message="${headers}\n${body}"/>
+                </otherwise>
+            </choice>
+
+
+        </route>
+
+        <route id="store">
+            <from uri="direct:store"/>
 
             <setHeader id="setKafkaKey" headerName="kafka.KEY">
                 <simple>${header[device_id]}</simple>
