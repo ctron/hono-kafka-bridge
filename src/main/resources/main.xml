@@ -24,7 +24,7 @@
                 </when>
                 <when>
                     <simple>${header[function_port]} == 9</simple>
-                    <log message="Time request: ${headers}\n${body}"/>
+                    <to uri="seda:time-request"/>
                 </when>
                 <otherwise>
                     <log message="${headers}\n${body}"/>
@@ -45,6 +45,23 @@
             </setHeader>
 
             <to uri="kafka:{{kafka.topic}}?brokers={{kafka.brokers}}" />
+        </route>
+
+        <route id="time-request">
+            <from uri="seda:time-request"/>
+
+            <log message="Time request: ${headers}\n${body}"/>
+
+            <removeHeaders pattern="*" excludePattern="device_id|function_port"/>
+
+            <setBody><constant>0000</constant></setBody>
+            <setHeader headerName="function_port"><constant>9</constant></setHeader>
+            <!-- <setHeader headerName="CamelJmsDestinationName"><simple>command/{{iot.tenant}}/${header[device_id]}</simple></setHeader> -->
+            <setHeader headerName="JMSDeliveryMode"><constant>NON_PERSISTENT</constant></setHeader>
+
+            <log message="Time response: ${headers}\n${body}"/>
+
+            <to uri="amqp:command/{{iot.tenant}}?allowAdditionalHeaders=function_port&amp;preserveMessageQos=true&amp;timeToLive=5000" />
         </route>
 
     </camelContext>
