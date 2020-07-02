@@ -27,7 +27,8 @@
                     <to uri="seda:time-request"/>
                 </when>
                 <otherwise>
-                    <log message="${headers}\n${body}"/>
+                    <log message="Headers: ${headers}"/>
+                    <log message="Body: ${body}"/>
                 </otherwise>
             </choice>
 
