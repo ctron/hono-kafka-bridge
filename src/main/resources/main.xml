@@ -5,15 +5,24 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <bean id="extractFunctionPort" class="de.dentrassi.iot.hono.bridge.ExtractFunctionPort">
+    </bean>
+
     <camelContext id="HonoKafkaBridge"
         xmlns="http://camel.apache.org/schema/spring">
 
         <dataFormats>
             <json id="map" library="Jackson" unmarshalTypeName="java.util.Map" />
+            <base64 lineLength="-1" id="base64" />
         </dataFormats>
 
         <route id="switch">
             <from uri="amqp:telemetry/{{iot.tenant}}" />
+
+            <marshal ref="base64" />
+            <setHeader headerName="function_port">
+                <method bean="extractFunctionPort"/>
+            </setHeader>
 
             <log message="FP: ${headers[function_port]}"/>
 
